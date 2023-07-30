@@ -13,8 +13,8 @@ namespace NLayer.Core
         public decimal Price { get; set; }
         //categoryId naming is special it is a foreign key naming
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
-        public ProductFeature ProductFeature { get; set; }
+        public ProductFeature? ProductFeature { get; set; }
     }
 }
