@@ -8,7 +8,7 @@ namespace NLayer.Core
 {
     public class Product:BaseEntity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int Stock { get; set; }
         public decimal Price { get; set; }
         //categoryId naming is special it is a foreign key naming
