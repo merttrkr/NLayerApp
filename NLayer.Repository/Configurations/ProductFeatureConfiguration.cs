@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Repository.Configurations
 {
-    internal class ProductFeatureConfiguration : IEntityTypeConfiguration<ProductFeature>
+    public class ProductFeatureConfiguration : IEntityTypeConfiguration<ProductFeature>
 
     {
         public void Configure(EntityTypeBuilder<ProductFeature> builder)
