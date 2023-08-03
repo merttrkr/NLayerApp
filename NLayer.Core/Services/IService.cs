@@ -14,9 +14,9 @@ namespace NLayer.Core.Services
         //queries does not go to database directly for more performance. It only goes when you call .ToListAsync()
         // productRepository.where(x=>x.id>5).OrderBy.ToListAsync()
         IQueryable<T> Where(Expression<Func<T, bool>> expression);// it gets the entity x and returns the result of the operation as boolean x.id>5
-        Task<T> AnyAsync(Expression<Func<T, bool>> expression);
-        Task AddAsync(T entity);
-        Task AddRangeAsync(IEnumerable<T> entities);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
+        Task<T> AddAsync(T entity);
+        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities);
         Task UpdateAsync(T entity);// it only changes the entities state in efcore so it does not have async 
         Task RemoveAsync(T entity);
         Task RemoveRangeAsync(IEnumerable<T> entities);
