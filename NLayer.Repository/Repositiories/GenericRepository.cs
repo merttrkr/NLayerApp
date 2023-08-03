@@ -25,7 +25,7 @@ namespace NLayer.Repository.Repositiories
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task AddRangeAsync(IEnumerable<T> entities)
+        public async Task AddRangeAsync(IEnumerable<T> entities)//ef core adds them to memory
         {
             await _dbSet.AddRangeAsync(entities);
         }
@@ -35,7 +35,7 @@ namespace NLayer.Repository.Repositiories
             return await _dbSet.AnyAsync(expression);
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
+        public IQueryable<T> GetAll()
         {
             return _dbSet.AsNoTracking().AsQueryable(); //as no tracking means do not track memory for update delete operations 
         }
