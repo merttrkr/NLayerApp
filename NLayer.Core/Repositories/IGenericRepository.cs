@@ -9,7 +9,7 @@ namespace NLayer.Core.Repositories
         //queries does not go to database directly for more performance. It only goes when you call .ToListAsync()
         // productRepository.where(x=>x.id>5).OrderBy.ToListAsync()
         IQueryable<T> Where(Expression<Func<T, bool>> expression);// it gets the entity x and returns the result of the operation as boolean x.id>5
-        IQueryable<T> GetAll(Expression<Func<T, bool>> expression);
+        IQueryable<T> GetAll();
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);
