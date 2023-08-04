@@ -2,6 +2,6 @@
 {
     public class ProductWithCategoryDto:ProductDto
     {
-        public CategoryDto category  { get; set; }
+        public CategoryDto? Category  { get; set; }
     }
 }
