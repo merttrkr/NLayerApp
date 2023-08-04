@@ -14,21 +14,21 @@ Manages data access and communication with the database. It employs the Reposito
 Implements the application's business logic and coordinates interactions between different layers. It relies on abstractions through interfaces and avoids direct references to the Data layer.
 
 ## Key Features
-→ Generic Repository: Achieves data access abstraction and code reusability by using a generic repository pattern.
+→ **Generic Repository:** Achieves data access abstraction and code reusability by using a generic repository pattern.
 
-AutoFac: Utilizes AutoFac as the dependency injection container to manage dependencies and promote loose coupling.
+→ **AutoFac:** Utilizes AutoFac as the dependency injection container to manage dependencies and promote loose coupling.
 
-→ FluentValidation: Employs FluentValidation to validate input data and business entities, ensuring data integrity.
+→ **FluentValidation:** Employs FluentValidation to validate input data and business entities, ensuring data integrity.
 
-→ Unit of Work: Implements the Unit of Work pattern for transaction management and consistency across data sources.
+→ **Unit of Work:** Implements the Unit of Work pattern for transaction management and consistency across data sources.
 
-→ Migration: Uses database migration to manage schema changes over time, ensuring smooth updates without data loss.
+→ **Migration:** Uses database migration to manage schema changes over time, ensuring smooth updates without data loss.
 
-→ Global Error Handling: Implements centralized error handling for consistent exception management.
+→ **Global Error Handling:** Implements centralized error handling for consistent exception management.
 
-→ Action Method Refactoring: Encapsulates common code snippets and functionalities to avoid duplication and improve code readability.
+→ **Action Method Refactoring:** Encapsulates common code snippets and functionalities to avoid duplication and improve code readability.
 
-→ AutoMapper: Utilizes AutoMapper for object mapping between layers, reducing manual mapping efforts.
+→ **AutoMapper:** Utilizes AutoMapper for object mapping between layers, reducing manual mapping efforts.
 
 → Entity Framework with N-tier Architecture: Uses Entity Framework for database interaction, with Data layer encapsulating all database-related operations.
 
