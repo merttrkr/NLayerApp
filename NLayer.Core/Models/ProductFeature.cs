@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NLayer.Core
+namespace NLayer.Core.Models
 {
     public class ProductFeature// 1 to 1 relation with product does not need to implement baseEntity
     {
