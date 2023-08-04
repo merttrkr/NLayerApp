@@ -30,8 +30,8 @@ Implements the application's business logic and coordinates interactions between
 
 → **AutoMapper:** Utilizes AutoMapper for object mapping between layers, reducing manual mapping efforts.
 
-→ Entity Framework with N-tier Architecture: Uses Entity Framework for database interaction, with Data layer encapsulating all database-related operations.
+**→ Entity Framework with N-tier Architecture:** Uses Entity Framework for database interaction, with Data layer encapsulating all database-related operations.
 
-→ Single Response Model in APIs: API endpoints return a single response model for a consistent data structure and improved performance.
+**→ Single Response Model in APIs:** API endpoints return a single response model for a consistent data structure and improved performance.
 
-→ Enjoy exploring the NLayerApp and leverage its multi-layered architecture to build robust applications!
+**→ Enjoy exploring the NLayerApp and leverage its multi-layered architecture to build robust applications!**
