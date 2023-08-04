@@ -35,3 +35,9 @@ Implements the application's business logic and coordinates interactions between
 **→ Single Response Model in APIs:** API endpoints return a single response model for a consistent data structure and improved performance.
 
 **→ Enjoy exploring the NLayerApp and leverage its multi-layered architecture to build robust applications!**
+## References
+
+https://www.c-sharpcorner.com/UploadFile/1492b1/understanding-multilayered-architecture-in-net/
+https://www.udemy.com/course/asp-net-core-api-web-cok-katmanli-mimari-api-best-practices/
+https://medium.com/@hamzaak/a-multi-layer-back-end-application-architecture-in-net-core-c08898f2427e
+https://learn.microsoft.com/en-us/answers/questions/747984/multi-layer-net-6-app
