@@ -2,7 +2,7 @@
 
 namespace NLayer.Core.DTOs
 {
-    public class CustomResponseDto<T>
+    public class CustomResponseDto<T>   //static factory 
     {
         public T? Data { get; set; }
 
