@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 // because NotFoundFilter has DI we are adding it to the services
-builder.Services.AddScoped(typeof(NotFoundFilter<>));
+builder.Services.AddScoped(typeof(NotFoundFilter<,>));
 
 //model to modelDto mapping definition
 builder.Services.AddAutoMapper(typeof(MapProfile));

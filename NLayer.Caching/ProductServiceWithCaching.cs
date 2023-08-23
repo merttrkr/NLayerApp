@@ -125,5 +125,65 @@ namespace NLayer.Caching
 
             return Task.FromResult(CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productsWithCategoryDto));
         }
+
+        public Task<CustomResponseDto<NoContentDto>> UpdateAsync(ProductUpdateDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomResponseDto<ProductDto>> AddAsync(ProductCreateDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomResponseDto<ProductDto>> IService<Product, ProductDto>.GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomResponseDto<IEnumerable<ProductDto>>> IService<Product, ProductDto>.GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomResponseDto<IEnumerable<ProductDto>>> IService<Product, ProductDto>.Where(Expression<Func<Product, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomResponseDto<bool>> IService<Product, ProductDto>.AnyAsync(Expression<Func<Product, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomResponseDto<ProductDto>> AddAsync(ProductDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomResponseDto<IEnumerable<ProductDto>>> AddRangeAsync(IEnumerable<ProductDto> dtos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomResponseDto<NoContentDto>> UpdateAsync(ProductDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomResponseDto<NoContentDto>> RemoveAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomResponseDto<NoContentDto>> RemoveRangeAsync(IEnumerable<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomResponseDto<IEnumerable<ProductWithCategoryDto>>> IProductService.GetProductsWithCategory()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
