@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NLayer.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class MyFirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +18,11 @@ namespace NLayer.Repository.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,14 +33,14 @@ namespace NLayer.Repository.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Stock = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,12 +57,12 @@ namespace NLayer.Repository.Migrations
                 name: "ProductFeatures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Height = table.Column<int>(type: "int", nullable: false),
-                    Width = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Color = table.Column<string>(type: "text", nullable: true),
+                    Height = table.Column<int>(type: "integer", nullable: false),
+                    Width = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,11 +92,11 @@ namespace NLayer.Repository.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedDate", "Name", "Price", "Stock", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 8, 2, 15, 13, 41, 167, DateTimeKind.Local).AddTicks(3155), "kalem 1", 100m, 10, null },
-                    { 2, 1, new DateTime(2023, 8, 2, 15, 13, 41, 167, DateTimeKind.Local).AddTicks(3165), "kalem 2", 200m, 20, null },
-                    { 3, 1, new DateTime(2023, 8, 2, 15, 13, 41, 167, DateTimeKind.Local).AddTicks(3167), "kalem 3", 200m, 30, null },
-                    { 4, 2, new DateTime(2023, 8, 2, 15, 13, 41, 167, DateTimeKind.Local).AddTicks(3167), "kitap 1", 200m, 30, null },
-                    { 5, 2, new DateTime(2023, 8, 2, 15, 13, 41, 167, DateTimeKind.Local).AddTicks(3168), "kitap 2", 200m, 30, null }
+                    { 1, 1, new DateTime(2023, 8, 23, 17, 33, 27, 269, DateTimeKind.Local).AddTicks(6859), "kalem 1", 100m, 10, null },
+                    { 2, 1, new DateTime(2023, 8, 23, 17, 33, 27, 269, DateTimeKind.Local).AddTicks(6871), "kalem 2", 200m, 20, null },
+                    { 3, 1, new DateTime(2023, 8, 23, 17, 33, 27, 269, DateTimeKind.Local).AddTicks(6873), "kalem 3", 200m, 30, null },
+                    { 4, 2, new DateTime(2023, 8, 23, 17, 33, 27, 269, DateTimeKind.Local).AddTicks(6874), "kitap 1", 200m, 30, null },
+                    { 5, 2, new DateTime(2023, 8, 23, 17, 33, 27, 269, DateTimeKind.Local).AddTicks(6876), "kitap 2", 200m, 30, null }
                 });
 
             migrationBuilder.InsertData(
