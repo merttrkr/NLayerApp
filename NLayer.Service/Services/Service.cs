@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using NLayer.Core.DTOs;
+using NLayer.Core.Models;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -12,69 +16,96 @@ using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
-    public class Service<T> : IService<T> where T : class
+    public class Service<Entity,Dto> : IService<Entity, Dto> where Entity:BaseEntity where Dto : class
     {
-        private readonly IGenericRepository<T> _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGenericRepository<Entity> _repository;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
 
-        public Service(IGenericRepository<T> repository, IUnitOfWork unitOfWork)
+        public Service(IGenericRepository<Entity> repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public async Task<CustomResponseDto<Dto>> AddAsync(Dto dto)
         {
-            await _repository.AddAsync(entity);
+            Entity newEntity = _mapper.Map<Entity>(dto);
+            await _repository.AddAsync(newEntity);
             await _unitOfWork.CommitAsync();
-            return entity;
+            var newDto = _mapper.Map<Dto>(newEntity);
+
+            return CustomResponseDto<Dto>.Success(StatusCodes.Status201Created, newDto);
         }
 
-        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)    //returns value because it adds to the database
+        public async Task<CustomResponseDto<IEnumerable<Dto>>> AddRangeAsync(IEnumerable<Dto> dtos)
         {
-            await _repository.AddRangeAsync(entities);
+            var newEntities = _mapper.Map<IEnumerable<Entity>>(dtos);
+            await _repository.AddRangeAsync(newEntities);
             await _unitOfWork.CommitAsync();
-            return entities;
+            var newDtos = _mapper.Map<IEnumerable<Dto>>(newEntities);
+
+            return CustomResponseDto<IEnumerable<Dto>>.Success(StatusCodes.Status200OK, newDtos);
         }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
+        public async Task<CustomResponseDto<bool>> AnyAsync(Expression<Func<Entity, bool>> expression)
         {
-            return await _repository.AnyAsync(expression);
+            var hasResult = await _repository.AnyAsync(expression);
+
+            return CustomResponseDto<bool>.Success(StatusCodes.Status200OK,hasResult);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<CustomResponseDto<IEnumerable<Dto>>> GetAllAsync()
         {
-            return await _repository.GetAll().ToListAsync();
+            var entities = await _repository.GetAll().ToListAsync();
+
+            var dtos = _mapper.Map<IEnumerable<Dto>>(entities);
+
+            return CustomResponseDto<IEnumerable<Dto>>.Success(StatusCodes.Status200OK, dtos);
+
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<CustomResponseDto<Dto>> GetByIdAsync(int id)
         {
-            var hasProduct = await _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id);
+            var dto = _mapper.Map<Dto>(entity);
 
-            return hasProduct is null ? throw new NotFoundException($"{typeof(T).Name} with the id {id} is not found") : hasProduct;
+            return CustomResponseDto<Dto>.Success(StatusCodes.Status200OK, dto);
         }
 
-        public async Task RemoveAsync(T entity)
+        public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(int id)
         {
+            var entity = await _repository.GetByIdAsync(id);
             _repository.Remove(entity);
             await _unitOfWork.CommitAsync();
+
+            return CustomResponseDto<NoContentDto>.Success(StatusCodes.Status204NoContent);
         }
 
-        public async Task RemoveRangeAsync(IEnumerable<T> entities)
+        public async Task<CustomResponseDto<NoContentDto>> RemoveRangeAsync(IEnumerable<int> ids)
         {
+            var entities = await _repository.Where(x=> ids.Contains(x.Id)).ToListAsync();
             _repository.RemoveRange(entities);
             await _unitOfWork.CommitAsync();
+
+            return CustomResponseDto<NoContentDto>.Success(StatusCodes.Status204NoContent);
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<CustomResponseDto<NoContentDto>> UpdateAsync(Dto dto)
         {
+            var entity = _mapper.Map<Entity>(dto);
             _repository.Update(entity);
-            await _unitOfWork.CommitAsync();  
+            await _unitOfWork.CommitAsync();
+            return CustomResponseDto<NoContentDto>.Success(StatusCodes.Status204NoContent);
         }
 
-        public IQueryable<T> Where(Expression<Func<T, bool>> expression)
+        public async Task<CustomResponseDto<IEnumerable<Dto>>> Where(Expression<Func<Entity, bool>> expression)
         {
-            return _repository.Where(expression);
+            var entites = await _repository.Where(expression).ToListAsync();
+            var dtos = _mapper.Map<IEnumerable<Dto>>(entites);
+
+            return CustomResponseDto<IEnumerable<Dto>>.Success(StatusCodes.Status200OK, dtos);
         }
     }
 }

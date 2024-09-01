@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 // because NotFoundFilter has DI we are adding it to the services
-builder.Services.AddScoped(typeof(NotFoundFilter<>));
+builder.Services.AddScoped(typeof(NotFoundFilter<,>));
 
 //model to modelDto mapping definition
 builder.Services.AddAutoMapper(typeof(MapProfile));
@@ -41,11 +41,12 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 
 
 builder.Services.AddDbContext<AppDbContext>(x =>
-{
+{   
     x.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"), option =>
     {   //retrieves the name of the assembly where the AppDbContext class is defined and uses it as the assembly for migrations.
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });
+    //x.UseNpgsql(builder.Configuration.GetConnectionString("NpgSqlConnection"));
 });
 
 
@@ -65,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // custom exception class
 app.UseCustomException();
